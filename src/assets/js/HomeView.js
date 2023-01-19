@@ -65,6 +65,11 @@ export default {
                     
                 }
                 this.allPostsList = response.data.postSearchResult;
+                if (this.allPostsList.length === 0) {
+                    this.isPostsListNull = true;
+                }else{
+                    this.isPostsListNull = false;
+                }
                 this.thisCategoryName = this.searchKey;
                 this.searchKey = "";
                }).catch(e => {
