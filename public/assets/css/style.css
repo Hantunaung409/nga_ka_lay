@@ -30,7 +30,7 @@
  position:fixed;
  z-index: 5000;
  height: 100vh;
- background-color: white;
+ background-color: var(--main-color);
  overflow-y: scroll;
 }
 .side-bar.open{
@@ -40,6 +40,8 @@
     z-index: 2005;
     background-color: white;
     height: 100vh;  
+    animation: showSlow 0.5s;
+
 }
 
 .social:hover{
@@ -106,3 +108,12 @@
   svg rect{
     fill: #FF6700;
   }
+
+  @keyframes showSlow {
+    0%{
+        transform: translateX(-150px);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}

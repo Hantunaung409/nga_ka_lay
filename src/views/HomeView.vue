@@ -37,7 +37,7 @@
             <div :class="[{'d-none' : !isShowSearch},'d-md-block','col-md-6','offset-md-1']">
               <div class="d-flex align-items-center justify-content-center">
                 <input type="text" name="" id="" class=" form-control shadow-none" placeholder="Search..." v-model="searchKey" v-on:keyup.enter="search">
-                <button class=" btn btn-sm btn-secondary ms-1 search-btn" @click="enter"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class=" btn btn-sm btn-secondary ms-1 search-btn" @click="search"><i class="fa-solid fa-magnifying-glass"></i></button>
               </div>
             </div>
 
