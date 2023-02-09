@@ -1,7 +1,9 @@
+import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 import axios from 'axios'
 export default {
     name: 'HomeView',
     components: {
+        Bootstrap5Pagination
     },
     data() {
       return {
@@ -12,14 +14,15 @@ export default {
         allPostsList: [],
         categoryLists: [],
         thisCategoryName: "",
-        searchKey: ""
+        searchKey: "",
       }
     },
     methods: {
-        getAllPosts() {
-            axios.get('https://tackle-admin.tackle-mm.com/api/allPosts').then((response) => {
-                for (let i = 0; i < response.data.AllPostsData.length ; i++) {
-                    response.data.AllPostsData[i].image = "https://tackle-admin.tackle-mm.com/storage/postImage/"+response.data.AllPostsData[i].image ;
+        getAllPosts(page = 1) {
+            axios.get(`https://tackle-admin.tackle-mm.com/api/allPosts?page=${page}`).then((response) => {
+                for (let i = 0; i < response.data.AllPostsData.data.length ; i++) {
+                    response.data.AllPostsData.data[i].image = "https://tackle-admin.tackle-mm.com/storage/postImage/"+response.data.AllPostsData.data[i].image ;
+                    response.data.AllPostsData.data[i].price = Number(response.data.AllPostsData.data[i].price).toLocaleString();
                 }
                 this.allPostsList = response.data.AllPostsData;
             }).catch(e => {
@@ -33,18 +36,19 @@ export default {
                 console.log(error);
             })
         },
-        categoryFilter(categoryName,index){
-            axios.post('https://tackle-admin.tackle-mm.com/api/category/search',{ searchKey : categoryName}).then((response) => {
-                for (let i = 0; i < response.data.categorySearchResult.length; i++) {
-                    response.data.categorySearchResult[i].image = "https://tackle-admin.tackle-mm.com/storage/postImage/"+response.data.categorySearchResult[i].image ;
-                    
+        categoryFilter(categoryName,index,page = 1){
+            axios.post(`https://tackle-admin.tackle-mm.com/api/category/search?page=${page}`,{ searchKey : categoryName}).then((response) => {
+                for (let i = 0; i < response.data.categorySearchResult.data.length; i++) {
+                    response.data.categorySearchResult.data[i].image = "https://tackle-admin.tackle-mm.com/storage/postImage/"+response.data.categorySearchResult.data[i].image ;
+                    response.data.categorySearchResult.data[i].price = Number(response.data.categorySearchResult.data[i].price).toLocaleString();
                 }
                 this.allPostsList = response.data.categorySearchResult;
-                if (this.allPostsList.length === 0) {
+                if (this.allPostsList.data.length === 0) {
                     this.isPostsListNull = true;
                 }else{
                     this.isPostsListNull = false;
                 }
+                // console.log(this.isPostsListNull);
                 //is active? category nav
                 this.categoryLists.forEach(element => {
                     element.isActive = false;
@@ -58,20 +62,22 @@ export default {
                 console.log(e);
             });
         },
-        search(){
-            axios.post('https://tackle-admin.tackle-mm.com/api/post/search',{ searchKey : this.searchKey}).then((response) => {
-                for (let i = 0; i < response.data.postSearchResult.length; i++) {
-                    response.data.postSearchResult[i].image = "https://tackle-admin.tackle-mm.com/storage/postImage/"+response.data.postSearchResult[i].image ;
-                    
+        search(page = 1){
+            axios.post(`https://tackle-admin.tackle-mm.com/api/post/search?page=${page}`,{ searchKey : this.searchKey}).then((response) => {
+                for (let i = 0; i < response.data.postSearchResult.data.length; i++) {
+                    response.data.postSearchResult.data[i].image = "https://tackle-admin.tackle-mm.com/storage/postImage/"+response.data.postSearchResult.data[i].image ;
+                    response.data.postSearchResult.data[i].price = Number(response.data.postSearchResult.data[i].price).toLocaleString();
                 }
                 this.allPostsList = response.data.postSearchResult;
-                if (this.allPostsList.length === 0) {
+                if (this.allPostsList.data.length === 0) {
                     this.isPostsListNull = true;
                 }else{
                     this.isPostsListNull = false;
                 }
                 this.thisCategoryName = this.searchKey;
+
                 this.searchKey = "";
+                // console.log(this.isPostsListNull);
                }).catch(e => {
                 console.log(e);
                });

@@ -12,7 +12,7 @@
     position: fixed;
     background-color: var(--text-color);
     bottom: 50px;
-    right: 15px;
+    right: 25px;
     z-index: 5000;
     display: inline-block;
     padding: 5px 10px;
