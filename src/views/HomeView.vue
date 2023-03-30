@@ -82,6 +82,7 @@
                       <h4 class="item-title">{{ post.name }}</h4>
                       <span class=" text-color">Ks-{{ post.price }}</span>
                       <h5 class=" opacity-75">{{ post.brand }}</h5>
+                      <router-link :to="{name : 'detail', params:{ postId: post.id}}"><button class="btn btn-sm btn-outline-secondary">Details</button></router-link>
                     </div>
                 </div>
               </div>
@@ -91,7 +92,6 @@
           <div class="d-flex justify-content-center align-items-center mt-5">
             <Bootstrap5Pagination :data="allPostsList"  @pagination-change-page="getAllPosts" size="large"/>
           </div>
-          
           <footer>
             <div class="container-fluid footer-container mt-4 pt-3">
               <div class="row">
@@ -121,8 +121,6 @@
               </div>
             </div>
           </footer>
-
-
         </div>
       </div>
     </section>
