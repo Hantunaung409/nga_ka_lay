@@ -1,24 +1,17 @@
-# nga_ka_lay
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+# Nga Ka Lay
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Used By
+
+This project is used by the following Shops:
+
+- Nga Ka Lay Fishing Gear tackle shop
+
+
+## Tech Stack
+
+**Client:** Vuejs,Bootstrap
+
+**Server:** Laravel 9
