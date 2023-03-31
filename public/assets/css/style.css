@@ -2,11 +2,12 @@
 :root{
     --main-color: white;
     --content-background: rgb(242, 242, 241);
-    --text-background: #dddddd;
+    --text-background: rgba(221,221,221,1);
     --text-color: rgb(223, 101, 25);
 }
-.html{
+html{
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 .go-top{
     position: fixed;
@@ -62,21 +63,28 @@
 }
 .content-container{
   margin-left: auto;
+  background-color: var(--main-color);
 }
 
-/* .item:hover{
+.item:hover{
     transform: scale(1.02);
-} */
+}
 .img-info{
-    margin-left: 5px;
-    padding: 5px 0 5px 20px;
+    padding: 5px 0 10px 10px;
     background-color: var(--text-background);
 }
 
 .item-title{
-
+ font-size: 18px;
+ font-weight: bolder;
+}
+.item-price{
+  font-size: 14px;
 }
 
+.item-brand{
+ font-size: 16px;
+}
 .footer-container{
     background-color: #363434;
     z-index: 5041;

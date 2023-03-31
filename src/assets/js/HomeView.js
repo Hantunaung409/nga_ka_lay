@@ -1,9 +1,13 @@
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 import axios from 'axios'
+import FooterSection from '../../components/FooterSection'
+import LoadingSpinner from '../../components/LoadingSpinner'
 export default {
     name: 'HomeView',
     components: {
-        Bootstrap5Pagination
+        Bootstrap5Pagination,
+        FooterSection,
+        LoadingSpinner
     },
     data() {
       return {
@@ -18,6 +22,9 @@ export default {
       }
     },
     methods: {
+        scrollToTopWhenClicked() {
+            window.scrollTo(0,0);
+          },
         getAllPosts(page = 1) {
             axios.get(`https://tackle-admin.tackle-mm.com/api/allPosts?page=${page}`).then((response) => {
                 for (let i = 0; i < response.data.AllPostsData.data.length ; i++) {
@@ -37,6 +44,9 @@ export default {
             })
         },
         categoryFilter(categoryName,index,page = 1){
+            this.scrollToTopWhenClicked();
+            this.allPostsList = [];
+            this.isPostsListNull = false;
             axios.post(`https://tackle-admin.tackle-mm.com/api/category/search?page=${page}`,{ searchKey : categoryName}).then((response) => {
                 for (let i = 0; i < response.data.categorySearchResult.data.length; i++) {
                     response.data.categorySearchResult.data[i].image = "https://tackle-admin.tackle-mm.com/storage/postImage/"+response.data.categorySearchResult.data[i].image ;
@@ -63,6 +73,8 @@ export default {
             });
         },
         search(page = 1){
+            this.allPostsList = [];
+            this.isPostsListNull = false;
             axios.post(`https://tackle-admin.tackle-mm.com/api/post/search?page=${page}`,{ searchKey : this.searchKey}).then((response) => {
                 for (let i = 0; i < response.data.postSearchResult.data.length; i++) {
                     response.data.postSearchResult.data[i].image = "https://tackle-admin.tackle-mm.com/storage/postImage/"+response.data.postSearchResult.data[i].image ;
@@ -86,14 +98,6 @@ export default {
     mounted () {
         this.getAllPosts(),
         this.GetAllCategoryData();
-        
-        let goTop = document.getElementsByClassName("go-top");
-        window.addEventListener('scroll',function(){
-            if(window.pageYOffset > 100){
-                goTop[0].classList.add('active');
-            }else{
-                goTop[0].classList.remove('active');
-            }
-        })  
+          
     },
   }
